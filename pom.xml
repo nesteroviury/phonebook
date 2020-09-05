@@ -18,7 +18,58 @@
 
 	<modules>
 		<module>domain</module>
-		<module>core</module>
-		<module>app</module>
+		<module>dto</module>
+		<module>rest</module>
+		<module>server</module>
+		<module>service</module>
 	</modules>
+
+	<properties>
+		<!--project-->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+
+		<!--dependencies-->
+		<org.mapstruct.version>1.3.1.Final</org.mapstruct.version>
+		<org.projectlombok.version>1.18.12</org.projectlombok.version>
+
+		<!--plugins-->
+		<org.apache.maven.plugins.version>3.8.1</org.apache.maven.plugins.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>ru.dev.interview.project</groupId>
+				<artifactId>dto</artifactId>
+				<version>${project.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>ru.dev.interview.project</groupId>
+				<artifactId>service</artifactId>
+				<version>${project.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>ru.dev.interview.project</groupId>
+				<artifactId>rest</artifactId>
+				<version>${project.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.mapstruct</groupId>
+				<artifactId>mapstruct-jdk8</artifactId>
+				<version>${org.mapstruct.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${org.projectlombok.version}</version>
+				<scope>provided</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

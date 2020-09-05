@@ -11,9 +11,11 @@ import ru.dev.interview.project.phonebook.domain.repository.PersonRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Repository
-@RequiredArgsConstructor(onConstructor = @__({@Autowired}))
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Transactional
 public class PersonDaoImpl implements PersonDao {
     private final PersonRepository personRepository;
@@ -21,6 +23,13 @@ public class PersonDaoImpl implements PersonDao {
     @Override
     public void delete(@NonNull Person person) {
         personRepository.delete(person);
+    }
+
+    @Override
+    public List<Person> find() {
+        return StreamSupport
+                .stream(personRepository.findAll().spliterator(), true)
+                .collect(Collectors.toList());
     }
 
     @Override

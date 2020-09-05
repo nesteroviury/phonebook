@@ -9,6 +9,8 @@ import java.util.Optional;
 public interface PersonDao {
     void delete(@NonNull Person person);
 
+    List<Person> find();
+
     Optional<Person> find(@NonNull Long id);
 
     List<Person> find(@NonNull String criteria);

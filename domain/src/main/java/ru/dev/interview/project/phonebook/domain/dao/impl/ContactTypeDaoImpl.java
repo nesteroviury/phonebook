@@ -2,7 +2,9 @@ package ru.dev.interview.project.phonebook.domain.dao.impl;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.dev.interview.project.phonebook.domain.dao.api.ContactTypeDao;
 import ru.dev.interview.project.phonebook.domain.entity.ContactType;
 import ru.dev.interview.project.phonebook.domain.repository.ContactTypeRepository;
@@ -10,7 +12,8 @@ import ru.dev.interview.project.phonebook.domain.repository.ContactTypeRepositor
 import java.util.Optional;
 
 @Repository
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__({@Autowired}))
+@Transactional
 public class ContactTypeDaoImpl implements ContactTypeDao {
     private final ContactTypeRepository contactTypeRepository;
 

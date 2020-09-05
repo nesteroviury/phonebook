@@ -2,7 +2,9 @@ package ru.dev.interview.project.phonebook.core.services.impl;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.dev.interview.project.phonebook.core.services.api.PersonService;
 import ru.dev.interview.project.phonebook.domain.dao.api.PersonDao;
 import ru.dev.interview.project.phonebook.domain.entity.Person;
@@ -10,8 +12,9 @@ import ru.dev.interview.project.phonebook.domain.entity.Person;
 import java.util.List;
 import java.util.Optional;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__({@Autowired}))
 @Service
+@Transactional
 public class PersonServiceImpl implements PersonService {
     private final PersonDao personDao;
 

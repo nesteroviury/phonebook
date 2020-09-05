@@ -2,7 +2,9 @@ package ru.dev.interview.project.phonebook.domain.dao.impl;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.dev.interview.project.phonebook.domain.dao.api.PersonDao;
 import ru.dev.interview.project.phonebook.domain.entity.Person;
 import ru.dev.interview.project.phonebook.domain.repository.PersonRepository;
@@ -11,7 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__({@Autowired}))
+@Transactional
 public class PersonDaoImpl implements PersonDao {
     private final PersonRepository personRepository;
 

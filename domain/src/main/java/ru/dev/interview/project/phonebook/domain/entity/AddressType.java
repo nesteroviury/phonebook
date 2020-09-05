@@ -8,8 +8,10 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,11 +20,12 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @Setter
-@ToString
+@ToString(exclude = "addresses")
 public class AddressType {
     @EqualsAndHashCode.Include
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDRESS_TYPE_SEQ")
+    @SequenceGenerator(name = "ADDRESS_TYPE_SEQ", sequenceName = "ADDRESS_TYPE_SEQ", allocationSize = 1)
     private Long id;
     private String value;
     @OneToMany(mappedBy = "type")

@@ -1,4 +1,4 @@
-package ru.dev.interview.project.phonebook.domain.entities;
+package ru.dev.interview.project.phonebook.domain.entity;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,7 +19,7 @@ import javax.persistence.OneToOne;
 @NoArgsConstructor
 @Setter
 @ToString
-public class Address {
+public class Contact {
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue
@@ -27,11 +27,11 @@ public class Address {
     private String value;
     @ManyToOne(optional = false)
     @JoinColumn(name = "type_id")
-    private AddressType type;
-    @OneToOne(mappedBy = "address")
+    private ContactType type;
+    @OneToOne(mappedBy = "contact")
     private Person person;
 
-    public Address(String value, AddressType type) {
+    public Contact(String value, ContactType type) {
         this.value = value;
         this.type = type;
     }

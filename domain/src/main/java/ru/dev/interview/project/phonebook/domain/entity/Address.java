@@ -1,4 +1,4 @@
-package ru.dev.interview.project.phonebook.domain.entities;
+package ru.dev.interview.project.phonebook.domain.entity;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -18,18 +19,20 @@ import javax.persistence.OneToOne;
 @NoArgsConstructor
 @Setter
 @ToString
-public class Person {
+public class Address {
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue
     private Long id;
-    private String firstName;
-    private String middleName;
-    private String lastName;
-    @OneToOne
-    @JoinColumn(name = "contact_id")
-    private Contact contact;
-    @OneToOne
-    @JoinColumn(name = "address_id")
-    private Address address;
+    private String value;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "type_id")
+    private AddressType type;
+    @OneToOne(mappedBy = "address")
+    private Person person;
+
+    public Address(String value, AddressType type) {
+        this.value = value;
+        this.type = type;
+    }
 }

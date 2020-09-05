@@ -1,4 +1,4 @@
-package ru.dev.interview.project.phonebook.domain.entities;
+package ru.dev.interview.project.phonebook.domain.entity;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -9,9 +9,9 @@ import lombok.ToString;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -19,20 +19,16 @@ import javax.persistence.OneToOne;
 @NoArgsConstructor
 @Setter
 @ToString
-public class Contact {
-    @Id
+public class ContactType {
     @EqualsAndHashCode.Include
+    @Id
     @GeneratedValue
     private Long id;
     private String value;
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "type_id")
-    private ContactType type;
-    @OneToOne(mappedBy = "contact")
-    private Person person;
+    @OneToMany(mappedBy = "type")
+    private Set<Contact> contacts = new HashSet<>();
 
-    public Contact(String value, ContactType type) {
+    public ContactType(String value) {
         this.value = value;
-        this.type = type;
     }
 }

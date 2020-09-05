@@ -1,4 +1,4 @@
-package ru.dev.interview.project.phonebook.domain.entities;
+package ru.dev.interview.project.phonebook.domain.entity;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

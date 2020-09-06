@@ -7,10 +7,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@ComponentScan(basePackages = {"ru.dev.interview.project.phonebook.core.service",
+@ComponentScan(basePackages = {"ru.dev.interview.project.phonebook.service.impl",
         "ru.dev.interview.project.phonebook.domain.dao",
         "ru.dev.interview.project.phonebook.domain.entity",
-        "ru.dev.interview.project.phonebook.core.mapper",
+        "ru.dev.interview.project.phonebook.service.mapper",
         "ru.dev.interview.project.phonebook.rest.controller"})
 @EnableJpaRepositories(basePackages = {"ru.dev.interview.project.phonebook.domain.repository"})
 @EnableTransactionManagement

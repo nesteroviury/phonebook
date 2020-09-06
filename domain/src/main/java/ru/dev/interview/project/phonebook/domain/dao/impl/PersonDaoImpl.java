@@ -66,9 +66,4 @@ public class PersonDaoImpl implements PersonDao {
         contactDao.save(contact);
         return personRepository.save(person);
     }
-
-    @Override
-    public Person update(@NonNull Person person) {
-        return personRepository.save(person);
-    }
 }

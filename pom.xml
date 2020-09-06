@@ -61,7 +61,7 @@
 			</dependency>
 			<dependency>
 				<groupId>ru.dev.interview.project</groupId>
-				<artifactId>service</artifactId>
+				<artifactId>domain</artifactId>
 				<version>${project.version}</version>
 				<scope>provided</scope>
 			</dependency>

@@ -26,9 +26,4 @@ public class ContactTypeDaoImpl implements ContactTypeDao {
     public ContactType save(@NonNull ContactType contactType) {
         return contactTypeRepository.save(contactType);
     }
-
-    @Override
-    public ContactType update(@NonNull ContactType contactType) {
-        return contactTypeRepository.save(contactType);
-    }
 }

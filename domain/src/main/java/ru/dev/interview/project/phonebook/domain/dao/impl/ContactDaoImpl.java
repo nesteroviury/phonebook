@@ -26,9 +26,4 @@ public class ContactDaoImpl implements ContactDao {
     public Contact save(@NonNull Contact contact) {
         return contactRepository.save(contact);
     }
-
-    @Override
-    public Contact update(@NonNull Contact contact) {
-        return contactRepository.save(contact);
-    }
 }

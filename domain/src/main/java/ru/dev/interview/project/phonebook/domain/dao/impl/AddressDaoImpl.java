@@ -26,9 +26,4 @@ public class AddressDaoImpl implements AddressDao {
     public Address save(@NonNull Address address) {
         return addressRepository.save(address);
     }
-
-    @Override
-    public Address update(@NonNull Address address) {
-        return addressRepository.save(address);
-    }
 }

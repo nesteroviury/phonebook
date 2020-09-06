@@ -17,6 +17,4 @@ public interface PersonDao {
     List<Person> find(@NonNull String criteria);
 
     Person save(@NonNull Person person) throws DaoException;
-
-    Person update(@NonNull Person person);
 }

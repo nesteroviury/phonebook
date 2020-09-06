@@ -9,6 +9,4 @@ public interface ContactDao {
     Optional<Contact> find(@NonNull Long id);
 
     Contact save(@NonNull Contact contact);
-
-    Contact update(@NonNull Contact contact);
 }

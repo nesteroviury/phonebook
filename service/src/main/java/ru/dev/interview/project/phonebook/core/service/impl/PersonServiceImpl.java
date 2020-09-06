@@ -9,6 +9,7 @@ import ru.dev.interview.project.phonebook.core.exception.ServiceException;
 import ru.dev.interview.project.phonebook.core.mapper.PersonMapper;
 import ru.dev.interview.project.phonebook.core.service.api.PersonService;
 import ru.dev.interview.project.phonebook.domain.dao.api.PersonDao;
+import ru.dev.interview.project.phonebook.domain.exception.DaoException;
 import ru.dev.interview.project.phonebook.dto.Person;
 
 import java.util.List;
@@ -41,12 +42,22 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person save(@NonNull Person person) {
-        return personMapper.toDto(personDao.save(personMapper.toEntity(person)));
+    public Person save(@NonNull Person person) throws ServiceException {
+        try {
+            return personMapper.toDto(personDao.save(personMapper.toEntity(person)));
+        } catch (DaoException e) {
+            //todo
+            throw new ServiceException("e", e);
+        }
     }
 
     @Override
-    public Person update(@NonNull Person person) {
-        return personMapper.toDto(personDao.save(personMapper.toEntity(person)));
+    public Person update(@NonNull Person person) throws ServiceException {
+        try {
+            return personMapper.toDto(personDao.save(personMapper.toEntity(person)));
+        } catch (DaoException e) {
+            //todo
+            throw new ServiceException("e", e);
+        }
     }
 }

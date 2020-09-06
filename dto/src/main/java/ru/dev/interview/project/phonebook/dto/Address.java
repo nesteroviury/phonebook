@@ -12,6 +12,7 @@ import java.io.Serializable;
 @ToString
 @Setter
 public class Address implements Serializable {
+    private static final long serialVersionUID = -2590520979181889334L;
     private Long id;
     private String value;
 }

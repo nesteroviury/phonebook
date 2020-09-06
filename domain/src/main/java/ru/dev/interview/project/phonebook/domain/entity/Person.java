@@ -39,7 +39,8 @@ public class Person {
     private Address address;
 
     @Builder
-    public Person(String firstName, String middleName, String lastName, Contact contact, Address address) {
+    public Person(Long id, String firstName, String middleName, String lastName, Contact contact, Address address) {
+        this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;

@@ -2,6 +2,7 @@ package ru.dev.interview.project.phonebook.domain.dao.api;
 
 import lombok.NonNull;
 import ru.dev.interview.project.phonebook.domain.entity.Person;
+import ru.dev.interview.project.phonebook.domain.exception.DaoException;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +16,7 @@ public interface PersonDao {
 
     List<Person> find(@NonNull String criteria);
 
-    Person save(@NonNull Person person);
+    Person save(@NonNull Person person) throws DaoException;
 
     Person update(@NonNull Person person);
 }

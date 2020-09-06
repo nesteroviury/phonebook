@@ -12,6 +12,7 @@ import java.io.Serializable;
 @ToString
 @Setter
 public class Contact implements Serializable {
+    private static final long serialVersionUID = 7966625570665946676L;
     private Long id;
     private String value;
 }

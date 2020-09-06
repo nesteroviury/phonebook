@@ -15,7 +15,7 @@ public interface PersonService {
 
     List<Person> find(@NonNull String criteria);
 
-    Person save(@NonNull Person person);
+    Person save(@NonNull Person person) throws ServiceException;
 
-    Person update(@NonNull Person person);
+    Person update(@NonNull Person person) throws ServiceException;
 }

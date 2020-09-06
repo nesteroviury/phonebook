@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
+import ru.dev.interview.project.phonebook.core.exception.ServiceException;
 import ru.dev.interview.project.phonebook.core.mapper.PersonMapper;
 import ru.dev.interview.project.phonebook.core.service.api.AddressService;
 import ru.dev.interview.project.phonebook.core.service.api.AddressTypeService;
@@ -47,12 +48,16 @@ public class BootstrapDataService implements CommandLineRunner {
                       String firstName, String middleName, String lastName) {
         Contact contact = contactService.save(new Contact(phoneNumber, contactType));
         Address address = addressService.save(new Address(addressValue, addressType));
-        personService.save(personMapper.toDto(Person.builder()
-                .address(address)
-                .contact(contact)
-                .firstName(firstName)
-                .middleName(middleName)
-                .lastName(lastName)
-                .build()));
+        try {
+            personService.save(personMapper.toDto(Person.builder()
+                    .address(address)
+                    .contact(contact)
+                    .firstName(firstName)
+                    .middleName(middleName)
+                    .lastName(lastName)
+                    .build()));
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
     }
 }

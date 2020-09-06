@@ -5,8 +5,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.dev.interview.project.phonebook.domain.dao.api.AddressDao;
+import ru.dev.interview.project.phonebook.domain.dao.api.AddressTypeDao;
+import ru.dev.interview.project.phonebook.domain.dao.api.ContactDao;
+import ru.dev.interview.project.phonebook.domain.dao.api.ContactTypeDao;
 import ru.dev.interview.project.phonebook.domain.dao.api.PersonDao;
+import ru.dev.interview.project.phonebook.domain.entity.Address;
+import ru.dev.interview.project.phonebook.domain.entity.Contact;
 import ru.dev.interview.project.phonebook.domain.entity.Person;
+import ru.dev.interview.project.phonebook.domain.exception.DaoException;
 import ru.dev.interview.project.phonebook.domain.repository.PersonRepository;
 
 import java.util.List;
@@ -18,6 +25,12 @@ import java.util.stream.StreamSupport;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Transactional
 public class PersonDaoImpl implements PersonDao {
+    private static final long DEFAULT_TYPE_ID = 1L;
+
+    private final AddressDao addressDao;
+    private final AddressTypeDao addressTypeDao;
+    private final ContactDao contactDao;
+    private final ContactTypeDao contactTypeDao;
     private final PersonRepository personRepository;
 
     @Override
@@ -44,7 +57,13 @@ public class PersonDaoImpl implements PersonDao {
     }
 
     @Override
-    public Person save(@NonNull Person person) {
+    public Person save(@NonNull Person person) throws DaoException {
+        Address address = person.getAddress();
+        address.setType(addressTypeDao.find(DEFAULT_TYPE_ID).orElseThrow(() -> new DaoException(String.format(DaoException.ENTITY_NOT_FOUND, DEFAULT_TYPE_ID))));
+        Contact contact = person.getContact();
+        contact.setType(contactTypeDao.find(DEFAULT_TYPE_ID).orElseThrow(() -> new DaoException(String.format(DaoException.ENTITY_NOT_FOUND, DEFAULT_TYPE_ID))));
+        addressDao.save(address);
+        contactDao.save(contact);
         return personRepository.save(person);
     }
 

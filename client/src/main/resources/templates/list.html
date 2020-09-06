@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>people</title>
+    </head>
+    <body>
+        <table border="1" align="center" width="50%">
+            <tr>
+                <td>
+                    <a th:href="@{/phone-book/list}" th:text="people"/>
+                </td>
+                <td align="right">
+                    <form action="#" th:action="@{/phone-book/search}" method="post">
+                        <input type="text" th:name="criteria"/>
+                        <button type="submit">search</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <table>
+                        <tr>
+                            <th>First name</th>
+                            <th>Middle name</th>
+                            <th>Last name</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                        </tr>
+                        <tr th:each="person : ${list}">
+                            <td th:text="${person.firstName}"/>
+                            <td th:text="${person.middleName}"/>
+                            <td th:text="${person.lastName}"/>
+                            <td th:text="${person.contact.value}"/>
+                            <td th:text="${person.address.value}"/>
+                            <td>
+                                <form action="#" th:action="@{/phone-book/delete}" th:object="${person}" method="post">
+                                    <input type="hidden" th:value="${person.id}" th:name="id" />
+                                    <input type="hidden" th:value="${person.firstName}" th:name="firstName" />
+                                    <input type="hidden" th:value="${person.middleName}" th:name="middleName" />
+                                    <input type="hidden" th:value="${person.lastName}" th:name="lastName" />
+                                    <input type="hidden" th:value="${person.contact.id}" th:name="contact.id" />
+                                    <input type="hidden" th:value="${person.contact.value}" th:name="contact.value" />
+                                    <input type="hidden" th:value="${person.address.id}" th:name="address.id" />
+                                    <input type="hidden" th:value="${person.address.value}" th:name="address.value" />
+                                    <input type="submit" value="delete"/>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td align="center">
+                    <form action="#" th:action="@{/phone-book/add}" th:object="${newPerson}" method="post">
+                        <table>
+                            <tr>
+                                <td>First Name</td>
+                                <td><input type="text" th:field="*{firstName}"/></td>
+                            </tr>
+                            <tr>
+                                <td>Middle Name</td>
+                                <td><input type="text" th:field="*{middleName}"/></td>
+                            </tr>
+                            <tr>
+                                <td>Last Name</td>
+                                <td><input type="text" th:field="*{lastName}"/></td>
+                            </tr>
+                            <tr>
+                                <td>Phone</td>
+                                <td><input type="text" th:field="*{contact.value}"/></td>
+                            </tr>
+                            <tr>
+                                <td>Address</td>
+                                <td><input type="text" th:field="*{address.value}"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="center">
+                                    <input type="submit" value="submit"/>
+                                    <input type="reset" value="reset"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

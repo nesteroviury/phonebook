@@ -4,18 +4,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
-import ru.dev.interview.project.phonebook.service.exception.ServiceException;
-import ru.dev.interview.project.phonebook.service.mapper.PersonMapper;
-import ru.dev.interview.project.phonebook.service.api.AddressService;
-import ru.dev.interview.project.phonebook.service.api.AddressTypeService;
-import ru.dev.interview.project.phonebook.service.api.ContactService;
-import ru.dev.interview.project.phonebook.service.api.ContactTypeService;
-import ru.dev.interview.project.phonebook.service.api.PersonService;
 import ru.dev.interview.project.phonebook.domain.entity.Address;
 import ru.dev.interview.project.phonebook.domain.entity.AddressType;
 import ru.dev.interview.project.phonebook.domain.entity.Contact;
 import ru.dev.interview.project.phonebook.domain.entity.ContactType;
 import ru.dev.interview.project.phonebook.domain.entity.Person;
+import ru.dev.interview.project.phonebook.service.api.AddressService;
+import ru.dev.interview.project.phonebook.service.api.AddressTypeService;
+import ru.dev.interview.project.phonebook.service.api.ContactService;
+import ru.dev.interview.project.phonebook.service.api.ContactTypeService;
+import ru.dev.interview.project.phonebook.service.api.PersonService;
+import ru.dev.interview.project.phonebook.service.exception.ServiceException;
+import ru.dev.interview.project.phonebook.service.mapper.PersonMapper;
 
 @RequiredArgsConstructor
 @Service
@@ -33,7 +33,7 @@ public class BootstrapDataService implements CommandLineRunner {
     private final PersonMapper personMapper;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         log.debug("Start data initializing");
         AddressType addressType = addressTypeService.save(new AddressType(ADDRESS_TYPE));
         ContactType contactType = contactTypeService.save(new ContactType(CONTACT_TYPE));
@@ -44,9 +44,20 @@ public class BootstrapDataService implements CommandLineRunner {
         log.debug("Data initialized");
     }
 
-    private void init(String phoneNumber, ContactType contactType, String addressValue, AddressType addressType,
+    /**
+     * Инициализирует данные абонента
+     *
+     * @param contactValue
+     * @param contactType
+     * @param addressValue
+     * @param addressType
+     * @param firstName
+     * @param middleName
+     * @param lastName
+     */
+    private void init(String contactValue, ContactType contactType, String addressValue, AddressType addressType,
                       String firstName, String middleName, String lastName) {
-        Contact contact = contactService.save(new Contact(phoneNumber, contactType));
+        Contact contact = contactService.save(new Contact(contactValue, contactType));
         Address address = addressService.save(new Address(addressValue, addressType));
         try {
             personService.save(personMapper.toDto(Person.builder()

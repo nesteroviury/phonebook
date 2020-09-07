@@ -22,7 +22,6 @@ import ru.dev.interview.project.phonebook.dto.Person;
 import java.util.Arrays;
 
 import static ru.dev.interview.project.phonebook.client.constant.Url.APP_PERSON_LIST;
-import static ru.dev.interview.project.phonebook.client.constant.Url.APP_SEARCH;
 import static ru.dev.interview.project.phonebook.client.constant.Url.REST_ADD_PERSON;
 import static ru.dev.interview.project.phonebook.client.constant.Url.REST_DELETE_PERSON;
 import static ru.dev.interview.project.phonebook.client.constant.Url.REST_PERSON_LIST;
@@ -34,14 +33,29 @@ public class PersonController {
     private static final String REDIRECT = "redirect:/";
     private final RestTemplate restTemplate;
 
+    /**
+     * Добавить абонента
+     *
+     * @param person абонент
+     * @param model
+     * @return
+     */
     @PostMapping(path = Url.APP_ADD_PERSON)
     public String add(@org.springframework.web.bind.annotation.ModelAttribute Person person, Model model) {
-        restTemplate.exchange(REST_ADD_PERSON, HttpMethod.POST, new HttpEntity<>(person, buildHeaders()), new ParameterizedTypeReference<Person>() {});
+        restTemplate.exchange(REST_ADD_PERSON, HttpMethod.POST, new HttpEntity<>(person, buildHeaders()), new ParameterizedTypeReference<Person>() {
+        });
         initNewPersonModelAttribute(model);
         initPersonListModelAttribute(REST_PERSON_LIST, model);
         return REDIRECT.concat(Url.APP_PERSON_LIST);
     }
 
+    /**
+     * Удалить абонента
+     *
+     * @param person абонент
+     * @param model
+     * @return
+     */
     @PostMapping(path = Url.APP_DELETE_PERSON)
     public String delete(@org.springframework.web.bind.annotation.ModelAttribute Person person, Model model) {
         doRestOperation(REST_DELETE_PERSON, HttpMethod.DELETE, person);
@@ -50,6 +64,13 @@ public class PersonController {
         return REDIRECT.concat(Url.APP_PERSON_LIST);
     }
 
+    /**
+     * Найти список абонентов. Поиск выполняется по фамилии, имени, отчеству, номеру и адресу
+     *
+     * @param criteria условие поиска
+     * @param model
+     * @return
+     */
     @PostMapping(path = Url.APP_SEARCH)
     public String find(@RequestParam String criteria, Model model) {
         initNewPersonModelAttribute(model);
@@ -57,6 +78,12 @@ public class PersonController {
         return View.PERSON_LIST;
     }
 
+    /**
+     * Получить список всех абонентов
+     *
+     * @param model
+     * @return
+     */
     @GetMapping(path = APP_PERSON_LIST)
     public String list(Model model) {
         initNewPersonModelAttribute(model);
@@ -64,21 +91,44 @@ public class PersonController {
         return View.PERSON_LIST;
     }
 
+    /**
+     * Сформировать зогловки http запроса
+     *
+     * @return
+     */
     private HttpHeaders buildHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return headers;
     }
 
-    private void doRestOperation(@NonNull String url, @NonNull HttpMethod httpMethod, @NonNull Person person){
+    /**
+     * Вызвать REST API
+     *
+     * @param url        адрес REST сервиса
+     * @param httpMethod
+     * @param person     абонент
+     */
+    private void doRestOperation(@NonNull String url, @NonNull HttpMethod httpMethod, @NonNull Person person) {
         restTemplate.exchange(url, httpMethod, new HttpEntity<>(person, buildHeaders()), new ParameterizedTypeReference<Person>() {});
     }
 
-    private void initNewPersonModelAttribute(@NonNull Model model){
+    /**
+     * Установить дефолтного абонент(используется в форме добавления нового абонента) в model
+     *
+     * @param model
+     */
+    private void initNewPersonModelAttribute(@NonNull Model model) {
         model.addAttribute(ModelAttribute.NEW_PERSON, new Person());
     }
 
-    private void initPersonListModelAttribute(@NonNull String url, @NonNull Model model){
+    /**
+     * Установть список абонентов в model
+     *
+     * @param url   адрес REST сервиса
+     * @param model
+     */
+    private void initPersonListModelAttribute(@NonNull String url, @NonNull Model model) {
         model.addAttribute(ModelAttribute.PERSON_LIST, Arrays.asList(restTemplate.getForObject(url, Person[].class)));
     }
 }

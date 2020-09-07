@@ -2,6 +2,7 @@ package ru.dev.interview.project.phonebook.domain.dao.impl;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,7 @@ import java.util.stream.StreamSupport;
 
 @Repository
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@Slf4j
 @Transactional
 public class PersonDaoImpl implements PersonDao {
     private static final long DEFAULT_TYPE_ID = 1L;
@@ -35,6 +37,7 @@ public class PersonDaoImpl implements PersonDao {
 
     @Override
     public void delete(@NonNull Person person) {
+        log.debug("call delete(person = {})", person);
         personRepository.delete(person);
     }
 
@@ -47,17 +50,20 @@ public class PersonDaoImpl implements PersonDao {
 
     @Override
     public Optional<Person> find(@NonNull Long id) {
+        log.debug("call find(id = {})", id);
         return personRepository.findById(id);
     }
 
     @Override
     public List<Person> find(@NonNull String criteria) {
+        log.debug("call find(criteria = {})", criteria);
         return personRepository.findByFirstNameContainsOrMiddleNameContainsOrLastNameContainsOrAddress_ValueContainsOrContact_ValueContains(criteria,
                 criteria, criteria, criteria, criteria);
     }
 
     @Override
     public Person save(@NonNull Person person) throws DaoException {
+        log.debug("call save(person = {})", person);
         Address address = person.getAddress();
         address.setType(addressTypeDao.find(DEFAULT_TYPE_ID).orElseThrow(() -> new DaoException(String.format(DaoException.ENTITY_NOT_FOUND, DEFAULT_TYPE_ID))));
         Contact contact = person.getContact();

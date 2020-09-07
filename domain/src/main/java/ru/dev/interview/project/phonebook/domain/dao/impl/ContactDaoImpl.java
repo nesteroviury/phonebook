@@ -2,6 +2,7 @@ package ru.dev.interview.project.phonebook.domain.dao.impl;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,17 +14,20 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@Slf4j
 @Transactional
 public class ContactDaoImpl implements ContactDao {
     private final ContactRepository contactRepository;
 
     @Override
     public Optional<Contact> find(@NonNull Long id) {
+        log.debug("call find(id = {})", id);
         return contactRepository.findById(id);
     }
 
     @Override
     public Contact save(@NonNull Contact contact) {
+        log.debug("call save(contact = {})", contact);
         return contactRepository.save(contact);
     }
 }

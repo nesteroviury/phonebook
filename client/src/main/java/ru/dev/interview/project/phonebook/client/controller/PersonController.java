@@ -2,6 +2,7 @@ package ru.dev.interview.project.phonebook.client.controller;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -29,6 +30,7 @@ import static ru.dev.interview.project.phonebook.client.constant.Url.REST_SEARCH
 
 @Controller
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@Slf4j
 public class PersonController {
     private static final String REDIRECT = "redirect:/";
     private final RestTemplate restTemplate;
@@ -42,6 +44,7 @@ public class PersonController {
      */
     @PostMapping(path = Url.APP_ADD_PERSON)
     public String add(@org.springframework.web.bind.annotation.ModelAttribute Person person, Model model) {
+        log.debug("call add(person = {})", person);
         restTemplate.exchange(REST_ADD_PERSON, HttpMethod.POST, new HttpEntity<>(person, buildHeaders()), new ParameterizedTypeReference<Person>() {
         });
         initNewPersonModelAttribute(model);
@@ -58,6 +61,7 @@ public class PersonController {
      */
     @PostMapping(path = Url.APP_DELETE_PERSON)
     public String delete(@org.springframework.web.bind.annotation.ModelAttribute Person person, Model model) {
+        log.debug("call delete(person = {})", person);
         doRestOperation(REST_DELETE_PERSON, HttpMethod.DELETE, person);
         initNewPersonModelAttribute(model);
         initPersonListModelAttribute(REST_PERSON_LIST, model);
@@ -73,6 +77,7 @@ public class PersonController {
      */
     @PostMapping(path = Url.APP_SEARCH)
     public String find(@RequestParam String criteria, Model model) {
+        log.debug("call find(criteria = {})", criteria);
         initNewPersonModelAttribute(model);
         initPersonListModelAttribute(REST_SEARCH.concat("/").concat(criteria), model);
         return View.PERSON_LIST;
@@ -110,6 +115,7 @@ public class PersonController {
      * @param person     абонент
      */
     private void doRestOperation(@NonNull String url, @NonNull HttpMethod httpMethod, @NonNull Person person) {
+        log.debug("call doRestOperation(url = {}, httpMethod = {}, person = {})", url, httpMethod, person);
         restTemplate.exchange(url, httpMethod, new HttpEntity<>(person, buildHeaders()), new ParameterizedTypeReference<Person>() {});
     }
 
@@ -129,6 +135,7 @@ public class PersonController {
      * @param model
      */
     private void initPersonListModelAttribute(@NonNull String url, @NonNull Model model) {
+        log.debug("call initPersonListModelAttribute(url = {})", url);
         model.addAttribute(ModelAttribute.PERSON_LIST, Arrays.asList(restTemplate.getForObject(url, Person[].class)));
     }
 }

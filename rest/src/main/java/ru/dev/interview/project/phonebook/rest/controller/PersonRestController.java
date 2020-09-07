@@ -1,6 +1,7 @@
 package ru.dev.interview.project.phonebook.rest.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ import static ru.dev.interview.project.phonebook.rest.controller.constant.Url.SE
 @RestController
 @RequestMapping(API)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@Slf4j
 public class PersonRestController {
     private final PersonService personService;
 
@@ -35,11 +37,12 @@ public class PersonRestController {
      */
     @PostMapping(ADD_PERSON)
     public Person add(@RequestBody Person person) {
+        log.debug("call add(person = {})", person);
         try {
             return personService.save(person);
         } catch (ServiceException e) {
-            //todo
-            return null;
+            log.warn("Error while person add operation: ", e);
+            return new Person();
         }
     }
 
@@ -50,6 +53,7 @@ public class PersonRestController {
      */
     @DeleteMapping(DELETE)
     public void delete(@RequestBody Person person) {
+        log.debug("call delete(person = {})", person);
         personService.delete(person);
     }
 
@@ -71,6 +75,7 @@ public class PersonRestController {
      */
     @GetMapping(SEARCH)
     public List<Person> find(@PathVariable String criteria) {
+        log.debug("call find(criteria = {})", criteria);
         return personService.find(criteria);
     }
 }

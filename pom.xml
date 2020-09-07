@@ -8,11 +8,10 @@
 		<relativePath/>
 	</parent>
 
-	<groupId>ru.dev.interview.project</groupId>
-	<artifactId>phonebook</artifactId>
+	<groupId>ru.dev.interview.project.phonebook</groupId>
+	<artifactId>root</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<modelVersion>4.0.0</modelVersion>
-	<name>phone book</name>
 	<description>Demo interview project</description>
 	<packaging>pom</packaging>
 
@@ -42,25 +41,25 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>ru.dev.interview.project</groupId>
+				<groupId>ru.dev.interview.project.phonebook</groupId>
 				<artifactId>dto</artifactId>
 				<version>${project.version}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>ru.dev.interview.project</groupId>
+				<groupId>ru.dev.interview.project.phonebook</groupId>
 				<artifactId>service</artifactId>
 				<version>${project.version}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>ru.dev.interview.project</groupId>
+				<groupId>ru.dev.interview.project.phonebook</groupId>
 				<artifactId>rest</artifactId>
 				<version>${project.version}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>ru.dev.interview.project</groupId>
+				<groupId>ru.dev.interview.project.phonebook</groupId>
 				<artifactId>domain</artifactId>
 				<version>${project.version}</version>
 				<scope>provided</scope>

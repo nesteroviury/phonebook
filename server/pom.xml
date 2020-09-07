@@ -3,31 +3,31 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>phonebook</artifactId>
-        <groupId>ru.dev.interview.project</groupId>
+        <artifactId>root</artifactId>
+        <groupId>ru.dev.interview.project.phonebook</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>server</artifactId>
     <modelVersion>4.0.0</modelVersion>
-    <name>server</name>
     <description>Server Spring Boot application</description>
+    <packaging>war</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>ru.dev.interview.project</groupId>
+            <groupId>ru.dev.interview.project.phonebook</groupId>
             <artifactId>service</artifactId>
         </dependency>
         <dependency>
-            <groupId>ru.dev.interview.project</groupId>
+            <groupId>ru.dev.interview.project.phonebook</groupId>
             <artifactId>dto</artifactId>
         </dependency>
         <dependency>
-            <groupId>ru.dev.interview.project</groupId>
+            <groupId>ru.dev.interview.project.phonebook</groupId>
             <artifactId>rest</artifactId>
         </dependency>
         <dependency>
-            <groupId>ru.dev.interview.project</groupId>
+            <groupId>ru.dev.interview.project.phonebook</groupId>
             <artifactId>domain</artifactId>
         </dependency>
 

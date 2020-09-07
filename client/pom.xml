@@ -3,15 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>phonebook</artifactId>
-        <groupId>ru.dev.interview.project</groupId>
+        <artifactId>root</artifactId>
+        <groupId>ru.dev.interview.project.phonebook</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>client</artifactId>
     <modelVersion>4.0.0</modelVersion>
-    <name>client</name>
     <description>REST API client</description>
+    <packaging>war</packaging>
 
     <dependencies>
         <dependency>
@@ -38,7 +38,7 @@
         </dependency>
 
         <dependency>
-            <groupId>ru.dev.interview.project</groupId>
+            <groupId>ru.dev.interview.project.phonebook</groupId>
             <artifactId>dto</artifactId>
         </dependency>
     </dependencies>
